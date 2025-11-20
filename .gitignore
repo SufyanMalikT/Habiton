@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Django static & media
+staticfiles/
+media/
+
+# VSCode settings
+.vscode/
+
+# Environment variables
+.env
+
+# SQLite database
+db.sqlite3
+
+# Django logs
+*.log
+
+# MacOS cache
+.DS_Store
+
+# Migrations (optional: ignore if you want)
+# */migrations/
+#     __pycache__/
+#     *.pyc
+
+# PyCharm
+.idea/
+
+# Byte-compiled
+*.so
+
+# Backup files
+*~
+*.bak
