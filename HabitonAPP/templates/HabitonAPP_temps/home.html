@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #2E236C, #17153B);
+    color: #C8ACD6;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #C8ACD6;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: rgba(200,172,214,0.85);
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    padding: 12px 30px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s ease;
+    display: inline-block;
+    margin-right: 1rem;
+  }
+
+  .btn-primary {
+    background: #C8ACD6;
+    color: #17153B;
+  }
+
+  .btn-primary:hover {
+    background: #E3C8F0;
+  }
+
+  .btn-secondary {
+    background: #433D8B;
+    color: #C8ACD6;
+  }
+
+  .btn-secondary:hover {
+    background: #2E236C;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .feature-card {
+    background: rgba(67,61,139,0.3);
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    background: rgba(67,61,139,0.5);
+  }
+
+  .feature-card h3 {
+    color: #C8ACD6;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    color: rgba(200,172,214,0.9);
+  }
+</style>
+
+<div class="hero">
+  <h1>Welcome to Habiton</h1>
+  <p>Track your habits, build streaks, earn points, and achieve your goals in a fun and engaging way!</p>
+  <div>
+    <a href="{% url 'signup' %}" class="btn btn-primary">Get Started</a>
+    <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="text-center" style="margin-bottom:2rem;">Features</h2>
+  <div class="features">
+    <div class="feature-card">
+      <h3>Track Habits</h3>
+      <p>Create daily, weekly, or monthly habits and mark them as completed.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Gamification</h3>
+      <p>Earn points, level up, and stay motivated with streaks.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Analytics</h3>
+      <p>Visualize your progress with charts and statistics.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Social Features</h3>
+      <p>Follow friends, compare streaks, and stay accountable.</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

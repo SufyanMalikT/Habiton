@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2E236C, #17153B);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #433D8B;
+            padding: 35px;
+            width: 380px;
+            border-radius: 18px;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 26px;
+            color: #C8ACD6;
+        }
+
+        label {
+            color: #C8ACD6;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            background: #2E236C;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #C8ACD6;
+        }
+
+        .errorlist {
+            background: #17153B;
+            padding: 8px;
+            border-radius: 8px;
+            color: #ffb3b3;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #C8ACD6;
+            color: #17153B;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #dec3e8;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .bottom-text a {
+            color: #C8ACD6;
+            text-decoration: none;
+        }
+    </style>
+
+
+
+<div class="card">
+    <h2>Create an Account</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {{ field.errors }}
+        {% endfor %}
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="bottom-text">
+        Already have an account?
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class=" fixed max-w-2xl mx-auto mt-10">
+
+    <h1 class="text-3xl font-bold mb-6">Your Dashboard</h1>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        
+        <div class="p-6 rounded-xl shadow bg-[#433D8B] text-white">
+            <h2 class="text-xl font-semibold">Total Habits</h2>
+            <p class="text-3xl font-bold">{{ total_habits }}</p>
+        </div>
+
+        <div class="p-6 rounded-xl shadow bg-[#433D8B] text-white">
+            <h2 class="text-xl font-semibold">Today's Completions</h2>
+            <p class="text-3xl font-bold">{{ todays_completions }}</p>
+        </div>
+
+        <div class="p-6 rounded-xl shadow bg-[#433D8B] text-white">
+            <h2 class="text-xl font-semibold">Current Streak</h2>
+            <p class="text-3xl font-bold">Coming soon</p>
+        </div>
+    </div>
+
+    <!-- Habit List -->
+    <h2 class="text-2xl font-semibold mb-4">Your Habits</h2>
+
+    <div class="space-y-3">
+        {% for habit in habits %}
+            <div class="flex justify-between items-center p-4 bg-[#C8ACD6] rounded-xl shadow">
+                <div>
+                    <p class="text-lg font-semibold">{{ habit.title }}</p>
+                    <p class="text-sm text-gray-600">{{ habit.frequency }}</p>
+                </div>
+
+                <a href="#" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                    Mark as Done
+                </a>
+            </div>
+        {% empty %}
+            <p class="text-gray-600">No habits yet. Start by creating one!</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
