@@ -43,3 +43,6 @@ db.sqlite3
 # Backup files
 *~
 *.bak
+
+# Node dependencies
+node_modules/
