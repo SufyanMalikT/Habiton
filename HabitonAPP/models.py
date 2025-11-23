@@ -32,5 +32,6 @@ class HabitCompletion(models.Model):
     class Meta:
         unique_together = ('habit','date')
 
+
     def __str__(self):
         return f"{self.habit.title} - {self.date} - {'Done' if self.completed else 'Pending'}"
