@@ -1,0 +1,60 @@
+{% block sidebar%}
+<!-- SIDEBAR -->
+<aside class="fixed hidden lg:flex z-100 w-64 h-screen bg-[#17153B] text-[#C8ACD6]  flex-col p-6 border-r border-[#2E236C]">
+
+  <!-- Logo -->
+  <h1 class="text-3xl font-extrabold mb-10 tracking-wide text-[#C8ACD6]">
+    Habiton
+  </h1>
+
+  <!-- Nav Items -->
+  <nav class="flex flex-col gap-2">
+
+    <!-- Dashboard -->
+    <a href="{% url 'dashboard' %}"
+       class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#2E236C] transition">
+      <span class="text-lg">🏠</span>
+      <span class="font-semibold">Dashboard</span>
+    </a>
+
+    <!-- Habits -->
+    <a href="{% url 'habits_list' %}"
+       class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#2E236C] transition">
+      <span class="text-lg">📌</span>
+      <span class="font-semibold">Habits</span>
+    </a>
+
+    <!-- Analytics -->
+    <a href=""
+       class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#2E236C] transition">
+      <span class="text-lg">📊</span>
+      <span class="font-semibold">Analytics</span>
+    </a>
+
+    <!-- Rewards -->
+    <a href=""
+       class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#2E236C] transition">
+      <span class="text-lg">🎁</span>
+      <span class="font-semibold">Rewards</span>
+    </a>
+
+    <!-- Settings -->
+    <a href=""
+       class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#2E236C] transition">
+      <span class="text-lg">⚙️</span>
+      <span class="font-semibold">Settings</span>
+    </a>
+
+  </nav>
+
+  <!-- Footer Section (Logout) -->
+  <div class="mt-auto pt-6">
+    <a href="{% url 'logout' %}"
+       class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#2E236C] transition text-red-400">
+      <span class="text-lg">🚪</span>
+      <span class="font-semibold">Logout</span>
+    </a>
+  </div>
+
+</aside>
+{% endblock %}

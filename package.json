@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "postcss ./static/css/styles.css -o ./static/css/output.css --watch"
+    "build:css": "postcss ./static/css/styles.css -o ./static/css/output.css --watch",
+    "dev": "npx @tailwindcss/cli -i ./static/src/input.css -o ./static/src/output.css --watch"
   },
   "repository": {
     "type": "git",

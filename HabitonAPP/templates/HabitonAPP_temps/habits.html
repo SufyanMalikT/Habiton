@@ -1,0 +1,97 @@
+{% extends 'HabitonAPP_temps/HabitonAPP_base.html' %}
+
+{% block habiton_content %}
+
+  <!-- Page Title -->
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-4xl font-extrabold tracking-wide">Your Habits</h1>
+    <a href="{% url 'add_habit' %}"
+       class="px-6 py-3 rounded-xl bg-[#C8ACD6] text-[#17153B] font-semibold shadow-lg hover:bg-white transition">
+      + Add Habit
+    </a>
+  </div>
+
+  <!-- Habit Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    {% for habit in habits %}
+    <!-- Habit Card -->
+    <div class="group bg-[#17153B]/40 backdrop-blur-md border border-[#433D8B] rounded-2xl shadow-xl p-6 
+                hover:border-[#C8ACD6] hover:shadow-2xl transition transform hover:-translate-y-2">
+
+      <!-- Top Row -->
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-bold">{{ habit.title }}</h2>
+        <span class="px-3 py-1 rounded-lg text-sm font-semibold bg-[#433D8B]/60">
+          {{ habit.get_frequency_display }}
+        </span>
+      </div>
+
+      <!-- Category -->
+      <p class="mt-2 text-[#C8ACD6]/70 italic">{{ habit.category }}</p>
+
+      <!-- Streak + Points -->
+      <div class="mt-6 flex items-center justify-between">
+        <div>
+          {% for streak in streaks %}
+          {% if habit == streak.habit %}
+          <p class="text-sm text-[#C8ACD6]/60">Current Streak</p>
+          <p class="text-3xl font-bold text-[#C8ACD6]">{{ streak.streak }}🔥</p>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="text-right">
+          <p class="text-sm text-[#C8ACD6]/60">Target</p>
+          <p class="text-3xl font-bold text-[#C8ACD6]">{{ habit.target_streak }}</p>
+        </div>
+      </div>
+
+      <!-- Completion Button -->
+      <div class="mt-8">
+        {% if habit.completed_today %}
+          <button disabled
+            class="w-full py-3 rounded-xl bg-green-500/70 text-white font-semibold shadow-md cursor-not-allowed">
+            Completed ✔
+          </button>
+        {% else %}
+          <form action="" method="POST">
+            {% csrf_token %}
+            <button
+              class="w-full py-3 rounded-xl bg-[#C8ACD6] text-[#17153B] font-bold hover:bg-white transition shadow-lg">
+              Mark as Completed
+            </button>
+          </form>
+        {% endif %}
+      </div>
+
+      <hr class="my-6 border-[#433D8B]/40">
+
+      <!-- Bottom Actions -->
+      <div class="flex items-center justify-between text-sm">
+
+        <a href=""
+           class="text-[#C8ACD6] hover:text-white underline transition">
+          View Details
+        </a>
+
+        <div class="flex gap-4">
+          <a href=""
+             class="hover:text-white transition">✏ Edit</a>
+          <a href=""
+             class="text-red-400 hover:text-red-300 transition">🗑 Delete</a>
+        </div>
+
+      </div>
+
+    </div>
+    {% empty %}
+      <p class="text-center text-lg text-[#C8ACD6]/70 col-span-full">
+        You don't have any habits yet. Start building something great!
+      </p>
+    {% endfor %}
+
+  </div>
+
+
+{% endblock %}

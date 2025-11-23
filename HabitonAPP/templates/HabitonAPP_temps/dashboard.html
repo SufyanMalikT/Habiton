@@ -1,49 +1,135 @@
 
-{% extends 'base.html' %}
+{% extends 'HabitonAPP_temps/HabitonAPP_base.html' %}
 
-{% block content %}
-<div class=" fixed max-w-2xl mx-auto mt-10">
+{% block habiton_content %}
 
-    <h1 class="text-3xl font-bold mb-6">Your Dashboard</h1>
+  <!-- Dashboard Header -->
+  <div class="flex justify-between items-center mb-10">
+    <h1 class="text-4xl font-extrabold tracking-wide">Dashboard</h1>
 
-    <!-- Summary Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        
-        <div class="p-6 rounded-xl shadow bg-[#433D8B] text-white">
-            <h2 class="text-xl font-semibold">Total Habits</h2>
-            <p class="text-3xl font-bold">{{ total_habits }}</p>
+    <a href="{% url 'add_habit' %}"
+       class="px-6 py-3 rounded-xl bg-[#C8ACD6] text-[#17153B] font-semibold shadow-lg hover:bg-white transition">
+      + New Habit
+    </a>
+  </div>
+
+  <!-- Grid Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <!-- Stats Panel -->
+    <div class="lg:col-span-2 flex flex-col gap-8">
+
+      <!-- Top Stats Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+        <!-- Points -->
+        <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md p-6 rounded-2xl shadow-xl">
+          <p class="text-sm text-[#C8ACD6]/70">Total Points</p>
+          <h2 class="text-4xl font-bold mt-2">{{ user.profile.points }}</h2>
         </div>
 
-        <div class="p-6 rounded-xl shadow bg-[#433D8B] text-white">
-            <h2 class="text-xl font-semibold">Today's Completions</h2>
-            <p class="text-3xl font-bold">{{ todays_completions }}</p>
+        <!-- Level -->
+        <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md p-6 rounded-2xl shadow-xl">
+          <p class="text-sm text-[#C8ACD6]/70">Current Level</p>
+          <h2 class="text-4xl font-bold mt-2">Level {{ user.profile.level }}</h2>
         </div>
 
-        <div class="p-6 rounded-xl shadow bg-[#433D8B] text-white">
-            <h2 class="text-xl font-semibold">Current Streak</h2>
-            <p class="text-3xl font-bold">Coming soon</p>
+        <!-- Active Habits -->
+        <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md p-6 rounded-2xl shadow-xl">
+          <p class="text-sm text-[#C8ACD6]/70">Active Habits</p>
+          <h2 class="text-4xl font-bold mt-2">{{ habits.count }}</h2>
         </div>
-    </div>
 
-    <!-- Habit List -->
-    <h2 class="text-2xl font-semibold mb-4">Your Habits</h2>
+      </div>
 
-    <div class="space-y-3">
-        {% for habit in habits %}
-            <div class="flex justify-between items-center p-4 bg-[#C8ACD6] rounded-xl shadow">
-                <div>
-                    <p class="text-lg font-semibold">{{ habit.title }}</p>
-                    <p class="text-sm text-gray-600">{{ habit.frequency }}</p>
-                </div>
+      <!-- Streak Overview -->
+      <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Your Streak Summary 🔥</h2>
 
-                <a href="#" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-                    Mark as Done
-                </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          {% for habit in habits|slice:":4" %}
+          <div class="bg-[#433D8B]/30 p-5 rounded-xl border border-[#433D8B]/50">
+            <h3 class="text-xl font-semibold">{{ habit.title }}</h3>
+            <p class="text-sm mt-1 text-[#C8ACD6]/70">{{ habit.category }}</p>
+
+            <div class="flex items-end justify-between mt-4">
+              <div>
+                {% for streak in streaks %}
+                {% if streak.habit == habit %}
+                <p class="text-xs text-[#C8ACD6]/60">Current Streak</p>
+                <p class="text-3xl font-bold">{{ streak.streak }}</p>
+                {% endif %}
+                {% endfor %}
+              </div>
+              <div>
+                <p class="text-xs text-[#C8ACD6]/60">Target</p>
+                <p class="text-3xl font-bold">{{ habit.target_streak }}</p>
+              </div>
             </div>
-        {% empty %}
-            <p class="text-gray-600">No habits yet. Start by creating one!</p>
-        {% endfor %}
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Recent Activity</h2>
+
+        <ul class="space-y-4">
+          {% for activity in recent %}
+          <li class="flex items-center justify-between bg-[#433D8B]/20 p-4 rounded-xl">
+            <span>{{ activity.habit.title }} — {{ activity.date }} </span>
+            <span class="{% if activity.completed %}text-green-400{% else %}text-red-400{% endif %}">
+              {% if activity.completed %}Completed ✔{% else %}Missed ✘{% endif %}
+            </span>
+          </li>
+          {% empty %}
+          <p class="text-[#C8ACD6]/60">No activity yet. Start building streaks!</p>
+          {% endfor %}
+        </ul>
+
+      </div>
+
     </div>
 
-</div>
+    <!-- Side Analytics Panel -->
+    <div class="flex flex-col gap-8">
+
+      <!-- Weekly Progress -->
+      <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md p-8 rounded-2xl shadow-xl">
+        <h2 class="text-xl font-bold mb-4">Weekly Progress</h2>
+        <div class="h-40 bg-[#433D8B]/20 rounded-xl flex items-center justify-center">
+          <p class="text-[#C8ACD6]/60">Chart Placeholder</p>
+        </div>
+      </div>
+
+      <!-- Most Successful Habit -->
+      <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md p-8 rounded-2xl shadow-xl">
+        <h2 class="text-xl font-bold mb-2">Top Habit</h2>
+        <p class="text-3xl font-bold">{{ top_habit.title }}</p>
+        <p class="text-sm text-[#C8ACD6]/70">{{ top_habit.current_streak }} day streak</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="bg-[#17153B]/40 border border-[#433D8B] backdrop-blur-md p-8 rounded-2xl shadow-xl">
+        <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+
+        <div class="flex flex-col gap-4">
+          <a href="{% url 'habits_list' %}"
+             class="px-4 py-3 text-center rounded-xl bg-[#433D8B] hover:bg-[#2E236C] transition">
+            View All Habits
+          </a>
+          <a href="{% url 'add_habit' %}"
+             class="px-4 py-3 text-center rounded-xl bg-[#C8ACD6] text-[#17153B] hover:bg-white transition">
+            Add New Habit
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
 {% endblock %}

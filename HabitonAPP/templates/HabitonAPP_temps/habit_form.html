@@ -1,0 +1,45 @@
+{% extends 'HabitonAPP_temps/HabitonAPP_base.html' %}
+
+{% block habiton_content %}
+<div class="min-h-screen max-w-xl bg-[#17153B] py-12 px-4 flex justify-center">
+    <div class="w-full max-w-lg bg-[#2E236C]/40 backdrop-blur-xl border 
+                border-[#433D8B]/40 rounded-2xl p-8 shadow-2xl shadow-black/40">
+
+        <h2 class="text-3xl font-bold text-center text-[#C8ACD6] mb-8 tracking-wide">
+            Create New Habit
+        </h2>
+
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-[#C8ACD6] mb-2 text-sm font-semibold">Habit Title</label>
+                {{ form.title }}
+            </div>
+
+            <div>
+                <label class="block text-[#C8ACD6] mb-2 text-sm font-semibold">Category</label>
+                {{ form.category }}
+            </div>
+
+            <div>
+                <label class="block text-[#C8ACD6] mb-2 text-sm font-semibold">Frequency</label>
+                {{ form.frequency }}
+            </div>
+
+            <div>
+                <label class="block text-[#C8ACD6] mb-2 text-sm font-semibold">Target Streak</label>
+                {{ form.target_streak }}
+            </div>
+
+            <button type="submit"
+                class="w-full bg-[#433D8B] hover:bg-[#2E236C] transition-all duration-200 
+                       text-[#C8ACD6] py-3 rounded-xl shadow-lg shadow-black/30 
+                       font-semibold tracking-wide">
+                Create Habit
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% block header %}
+<!-- HEADER -->
+<header class="fixed top-0 z-101 w-full bg-[#2E236C] text-[#C8ACD6] flex items-center justify-between px-6 py-4 shadow-lg border-b border-[#433D8B]">
+
+  <!-- Left Side: App Title -->
+  <h2 class="text-2xl font-bold tracking-wide">
+    LOGO
+  </h2>
+
+  <!-- Right Side -->
+  <div class="flex items-center gap-6">
+
+    <!-- Search (optional) -->
+    <div class="hidden md:flex items-center bg-[#17153B] px-3 py-2 rounded-xl border border-[#433D8B]">
+      <input 
+        type="text" 
+        placeholder="Search..." 
+        class="bg-transparent text-[#C8ACD6] placeholder-[#C8ACD6]/60 focus:outline-none"
+      >
+    </div>
+
+    <!-- Notifications -->
+    <button class="text-[#C8ACD6] hover:text-white text-xl transition">
+      🔔
+    </button>
+
+    <!-- Profile dropdown -->
+    <div class="relative group">
+      <button class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-[#C8ACD6] text-[#17153B] flex items-center justify-center font-bold">
+          {{ request.user.username|first|upper }}
+        </div>
+        <span class="font-semibold hidden md:block">{{ request.user.username }}</span>
+      </button>
+
+      <!-- Dropdown -->
+      <div class="absolute right-0 mt-3 hidden group-hover:block bg-[#17153B] border border-[#433D8B] rounded-xl shadow-xl w-40">
+        <a href="" class="block px-4 py-3 text-[#C8ACD6] hover:bg-[#2E236C] transition">Settings</a>
+        <a href="{% url 'logout' %}" class="block px-4 py-3 text-red-400 hover:bg-[#2E236C] transition">Logout</a>
+      </div>
+    </div>
+
+  </div>
+
+</header>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block header %}
+{% include 'HabitonAPP_temps/comps/header.html'%}
+{% endblock header %}
+
+{% block sidebar %}
+{% include 'HabitonAPP_temps/comps/_sidebar.html'%}
+{% endblock sidebar %}
+
+<div class="relative ml-70 top-18 h-fit bg-gradient-to-br from-[#2E236C] to-[#17153B] text-[#C8ACD6] px-6 py-10">
+{% block habiton_content %}
+{% endblock habiton_content %}
+</div>
+{% endblock content %}

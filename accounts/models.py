@@ -6,3 +6,5 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     score = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
+
+    
